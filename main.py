@@ -1,42 +1,38 @@
 # импортируем библиотеки
 from flask import Flask
 import requests
+# из библиотеки импорт двух классов
 from flask_restful import Api, Resource
 
 
 app = Flask(__name__) # создание приложения
-api = Api()          #
+api = Api()          # создание API
 
-
+# переменные для получения информации о моих репозиториях
+github_username = 'macherevilyne'
+repo = 'ilmax'
 
 class Main(Resource):
 
     def get(self):
-
-        github_username = 'macherevilyne'
-        repo = 'ilmax'
         api_url = f"https://api.github.com/repos/{github_username}/{repo}"
         response = requests.get(api_url).json()
         return response
 
 
-
 class Main2(Resource):
     def get(self):
-        github_username = 'macherevilyne'
-        repo = 'ilmax'
         api_url = f"https://api.github.com/repos/{github_username}/{repo}/forks"
         response = requests.get(api_url).json()
         return response
 
 class Main3(Resource):
     def get(self):
-        github_username = 'macherevilyne'
-        repo = 'ilmax'
         api_url = f"https://api.github.com/repos/{github_username}/{repo}/issues"
         response = requests.get(api_url).json()
-
         return response
+
+
 
 class Main4(Resource):
     def get(self):
@@ -57,7 +53,7 @@ class Main5(Resource):
         return response
 
 
-
+# обратка URL адресов
 api.add_resource(Main,'/api/main')
 api.add_resource(Main2, '/api/main/forks')
 api.add_resource(Main3, '/api/main/issues')
@@ -67,5 +63,6 @@ api.add_resource(Main5, '/api/main/pull_requests/days')
 
 api.init_app(app)
 
+# запуск проекта
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host='127.0.0.1')
+    app.run(debug=True, port=1000, host='127.0.0.1')
